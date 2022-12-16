@@ -12,15 +12,31 @@
         crossorigin="anonymous"></script>
 <body>
 <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link" href="#">Home Page</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="logout_user">logout</a>
-  </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Home Page</a>
+    </li>
+    {% if user.is_authenticated %}
+    <li class="nav-item">
+        <a class="nav-link" href="logout_user">logout</a>
+    </li>
+    <li class="nav-item">Welcome {{ user.username }}</li>
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link" href="login_user">login</a>
+    </li>
+    {% endif %}
+
 
 </ul>
 <main>
+{% if messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+</div>
+{% endif %}
+
     {% block content %}
     {% endblock %}
 </main>

@@ -18,9 +18,10 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, ("There was An Error Logging In , try Again...  "))
+            messages.success(request, ("Login success  "))
             # Redirect to a success page.
-            return redirect('index')
+            return render(request, 'first.html')
+
         else:
             # Return an 'invalid login' error message. stay on the same page
             messages.success(request, ("There was An Error Logging In , try Again...  "))
@@ -32,4 +33,5 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
+    messages.success(request, ("You , Were logged out...  "))
     return redirect('login_user')
